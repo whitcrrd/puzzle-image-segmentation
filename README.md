@@ -15,7 +15,7 @@ As an avid puzzler growing up, I thought this would be a fun challenge that had 
 The dataset was created by taking pieces from 5 puzzles and photographing them in *expected* situations (in the puzzle's box, in one's hand, on a table, etc.).  Given the business application of the desired solution, it did not make sense to photograph these pieces in random situations.  For the training and validation sets, the neural network requires the object outlines to be annotated and classified, so I used the [VGG Image Annotator (VIA)](http://www.robots.ox.ac.uk/~vgg/software/via/) to create these in JSON.
 
 ###### Annotation Example
-![annotation-gif](https://i.imgur.com/k5ku6OZ.mp4)
+![annotation-gif](https://i.imgur.com/En6Yp8M.gif)
 
 
 - 5 puzzles (2x 100-piece, 2x 200-piece, 1x 1000-piece)
