@@ -15,7 +15,7 @@ As an avid puzzler growing up, I thought this would be a fun challenge that had 
 The dataset was created by taking pieces from 5 puzzles and photographing them in *expected* situations (in the puzzle's box, in one's hand, on a table, etc.).  Given the business application of the desired solution, it did not make sense to photograph these pieces in random situations.  For the training and validation sets, the neural network requires the object outlines to be annotated and classified, so I used the [VGG Image Annotator (VIA)](http://www.robots.ox.ac.uk/~vgg/software/via/) to create these in JSON.
 
 ###### Annotation Example
-![annotation-gif](https://i.imgur.com/En6Yp8M.gif)
+![annotation-gif](https://i.imgur.com/k5ku6OZ.mp4)
 
 
 - 5 puzzles (2x 100-piece, 2x 200-piece, 1x 1000-piece)
@@ -34,14 +34,33 @@ In computer vision, image identification can be broken down into at least four t
 3. ***Object Detection***: Quantifying and Locating the number of pieces in an image (accounting for overlaps)
 4. ***Instance Segmentation***: Quantifying and locating all instances of a puzzle piece, at the pixel level, in the image.
 
-The first part of the project focused on image segmentation and being able to accurately classify and locate a puzzle piece in an image.  To do this, I used a Mask R-CNN pretrained on the COCO dataset, and provided the model with the annotated dataset.  A handful of models were trained (freezing the base layers) using different configuration parameters for varying epochs, and the models were evaluated based on their `val_mask_rcnn_loss` and Intersect over Union (IoU) scores.  Intersect over Union measures the percent overlap between the ground truth mask/bounding box (annotated) and predicted mask/bounding box.  Despite adjusting weights in an effort to increase the IoU scores, the average mask IoU plateaued at around 14%.
+The first part of the project focused on image segmentation and being able to accurately classify and locate a puzzle piece in an image.  To do this, I used a Mask R-CNN pretrained on the COCO dataset, and provided the model with the annotated dataset.  A handful of models were trained (freezing the base layers) using different configuration parameters for varying epochs, and the models were evaluated based on their `val_mask_rcnn_loss` and Intersect over Union (IoU) scores.  Intersect over Union measures the percent overlap between the ground truth mask/bounding box (annotated) and predicted mask/bounding box.  Despite adjusting weights in an effort to increase the IoU scores, the average `val_mrcnn_mask_loss` plateaued at around 14%.
 
-**Average Mask IoU: 84%**
-
-**Average Box IoU: 87%**
+##### **Average Mask IoU: 84%**
+##### **Average Box IoU: 87%**
 
 ######  IoU Comparison
 ![take-that-for-data](https://i.imgur.com/Of4j8bV.png)
+
+In the final model, a couple of the configuration/design choices included:
+
+*   `Pretrained Weights`: COCO
+*   `Epochs`: 20
+*   `DETECTION_MAX_INSTANCES`: 1 (expecting only 1 puzzle piece per image)
+*   `MINI_MASK_SHAPE`: (224, 224)
+*   `USE_MINI_MASK`: True
+*   `DETECTION_MIN_CONFIDENCE`: 0.90
+*   `STEPS_PER_EPOCH`: 100
+*   `VALIDATION_STEPS`: 50
+*   `LOSS_WEIGHTS`: `{'rpn_class_loss': 1.0, 'rpn_bbox_loss': 1.05,  'mrcnn_class_loss': 1.0, 'mrcnn_bbox_loss': 1.0, 'mrcnn_mask_loss': 1.2}`
+
+And, in "inferior" models, a couple of the configuration/design choices included:
+
+*   `Epochs`: 5, 10, 15
+*   `USE_MINI_MASK`: False (caused RAM overload - was hoping to increase mask accuracy by avoiding minimization)
+*   `MINI_MASK_SHAPE`: (28,28), (56,56) - searching for better mask IoUs
+*   `LOSS_WEIGHTS`:  Increase/Decrease of `mrcnn_mask_loss` (vs others), and `mrcnn_bbox_loss`/`class_loss`
+*   `DETECTION_MAX_INSTANCES`: 10 - originally, had annotated images of multiple pieces, but removed to increase single-piece mask IoU
 
 #### Part II: Segmentation Extraction
 
