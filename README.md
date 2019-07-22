@@ -85,6 +85,13 @@ If enough features were matched between the piece and the box, and the piece's l
 ###### Location Prediction Example
 ![fm](https://i.imgur.com/Ge0k4gX.gif)
 
+## Links to Dataset, Model Checkpoints, Results, Etc.
+
+- [Dataset](https://drive.google.com/open?id=1cCzpSrCailM01F9PgaP7UMoMFw5J7tHZ) - 93 training images, 22 validation, handful of test images, and their boxes
+- [Final Model Checkpoint Weights](https://drive.google.com/open?id=10r__8IG39zDmzSjNhvR9CActjp4XzvKA) - for loading pretrained weights for inference on validation/test images
+- [Segmented Puzzle Piece Results](https://drive.google.com/open?id=1C2l2RNSSDaZh_7N_3_kSlWCPWU7CWZu1) - some of the resulting puzzle pieces with backgrounds removed
+- [Feature Matching Results](https://drive.google.com/open?id=1gxCABUmwwPzaJnqfCIy7Tsc-xPMsFkEK) - some of the feature matches between puzzle piece and box
+
 ## Future Work & Takeaways
 
 ### Areas of Improvement
