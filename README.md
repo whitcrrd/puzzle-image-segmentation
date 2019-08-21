@@ -2,7 +2,7 @@
 
 ## Motivation
 
-Despite having only rudimentary exposure to image classification and no exposure to semantic/instance segmentation, I found myself gravitating towards instance segmentation.  Inspired by [this writeup](https://engineering.matterport.com/splash-of-color-instance-segmentation-with-mask-r-cnn-and-tensorflow-7c761e238b46) about using Matterport's Mask R-CNN for pixel-level balloon identification, I started mulling ideas with my good friend and founder of the [codebug bootcamp](https://www.codebug.us/).  A couple rabbit holes later, we stumbled upon a couple of puzzles under the coffee table and came up with an initial business question:
+Despite having only rudimentary exposure to image classification and no exposure to semantic/instance segmentation, I found myself gravitating towards instance segmentation.  Inspired by [this writeup](https://engineering.matterport.com/splash-of-color-instance-segmentation-with-mask-r-cnn-and-tensorflow-7c761e238b46) about using Matterport's Mask R-CNN for pixel-level balloon identification, I started mulling ideas with my good friend and founder of the [codebug bootcamp](https://www.codebug.us/).  A couple of  rabbit holes later, we stumbled upon a couple of puzzles under the coffee table and came up with an initial business question:
 
 ***Can you take a photo of a puzzle piece and the photo of its box and predict where in the puzzle it belongs?***
 
